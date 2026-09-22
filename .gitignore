@@ -1,0 +1,19 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Research inputs and outputs can contain sensitive or licensed material.
+data/original/*
+!data/original/.gitkeep
+data/perturbed/*
+!data/perturbed/.gitkeep
+results/raw/*
+!results/raw/.gitkeep
+results/processed/*
+!results/processed/.gitkeep

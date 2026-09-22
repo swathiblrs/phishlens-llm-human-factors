@@ -1,0 +1,16 @@
+{
+  "sample_id": "DEMO-001",
+  "verdict": "uncertain",
+  "confidence": 42,
+  "claimed_brand": null,
+  "evidence": [
+    {
+      "category": "url_domain",
+      "observation": "The supplied URL context is unavailable.",
+      "risk_relevance": "The apparent brand cannot be compared with a verified domain."
+    }
+  ],
+  "explanation": "The available evidence is insufficient to determine whether this page is legitimate. Verify the destination independently before entering any information.",
+  "recommended_action": "verify_independently",
+  "needs_human_review": true
+}

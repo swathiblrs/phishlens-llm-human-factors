@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/phishlens/llm_output.schema.json",
+  "title": "PhishLens LLM Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sample_id",
+    "verdict",
+    "confidence",
+    "claimed_brand",
+    "evidence",
+    "explanation",
+    "recommended_action",
+    "needs_human_review"
+  ],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["phishing", "legitimate", "uncertain"]
+    },
+    "confidence": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "claimed_brand": {
+      "type": ["string", "null"]
+    },
+    "evidence": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["category", "observation", "risk_relevance"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "url_domain",
+              "branding",
+              "credential_request",
+              "layout",
+              "security_indicator",
+              "content",
+              "other"
+            ]
+          },
+          "observation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "risk_relevance": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommended_action": {
+      "type": "string",
+      "enum": ["proceed", "verify_independently", "leave_page"]
+    },
+    "needs_human_review": {
+      "type": "boolean"
+    }
+  }
+}
