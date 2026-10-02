@@ -54,7 +54,7 @@ The planned visual manipulation categories are:
 | Color and layout | Color replacement, repositioning, or layout modification |
 | Brand and URL cues | Brand-text changes, font/case changes, or mismatched displayed domains |
 
-The project currently includes Professor Kim's perturbation dataset with Swin, ViT, CW, FGM, PGD, and SRNet examples. These samples will be paired with verified labels and URL context before formal evaluation.
+The project currently includes Professor Kim's perturbation dataset with Swin, ViT, CW, FGM, PGD, and SRNet examples, plus visible logo manipulations such as color changes, scaling, rotation, replacement, blur, and font changes. The organized inventory is stored in [`data/controlled_variants.csv`](data/controlled_variants.csv) and can be reproduced with [`scripts/build_controlled_variants_manifest.py`](scripts/build_controlled_variants_manifest.py). Experimental labels remain pending until verified URL context is assigned.
 
 ### Stage 2: Human study
 
