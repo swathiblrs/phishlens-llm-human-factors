@@ -56,6 +56,8 @@ The planned visual manipulation categories are:
 
 The project currently includes Professor Kim's perturbation dataset with Swin, ViT, CW, FGM, PGD, and SRNet examples, plus visible logo manipulations such as color changes, scaling, rotation, replacement, blur, and font changes. The organized inventory is stored in [`data/controlled_variants.csv`](data/controlled_variants.csv) and can be reproduced with [`scripts/build_controlled_variants_manifest.py`](scripts/build_controlled_variants_manifest.py). Experimental labels remain pending until verified URL context is assigned.
 
+The selected experiment set is stored in [`data/experiment_subset.csv`](data/experiment_subset.csv). It contains a 12-record pilot, a balanced 150-record main evaluation, and five unseen transfer samples. The main set covers all 18 manipulation types with three screenshots per type. Each controlled screenshot receives matched official-domain and synthetic `.test` domain contexts. The selection can be reproduced with [`scripts/build_experiment_subset.py`](scripts/build_experiment_subset.py).
+
 ### Stage 2: Human study
 
 Subject to instructor and IRB/HRPP approval, adult participants will classify randomized website screenshots under one of three conditions:
