@@ -58,6 +58,8 @@ The project currently includes Professor Kim's perturbation dataset with Swin, V
 
 The selected experiment set is stored in [`data/experiment_subset.csv`](data/experiment_subset.csv). It contains a 12-record pilot, a balanced 150-record main evaluation, and five unseen transfer samples. The main set covers all 18 manipulation types with three screenshots per type. Each controlled screenshot receives matched official-domain and synthetic `.test` domain contexts. The selection can be reproduced with [`scripts/build_experiment_subset.py`](scripts/build_experiment_subset.py).
 
+Team review packages are under [`review/`](review/). They contain 9 pilot, 96 main, and 5 transfer screenshots with separate CSV manifests, balanced reviewer assignments, independent decision fields, and adjudication fields. Team members should follow [`review/REVIEW_INSTRUCTIONS.md`](review/REVIEW_INSTRUCTIONS.md) and complete the pilot before starting the main review. The packages can be rebuilt with [`scripts/build_review_packages.py`](scripts/build_review_packages.py).
+
 ### Stage 2: Human study
 
 Subject to instructor and IRB/HRPP approval, adult participants will classify randomized website screenshots under one of three conditions:
