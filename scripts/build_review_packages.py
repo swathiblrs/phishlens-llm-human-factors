@@ -36,8 +36,7 @@ COLUMNS = [
     "reviewer_1_notes",
     "reviewer_2_decision",
     "reviewer_2_notes",
-    "adjudicator",
-    "adjudication_notes",
+    "disagreement",
     "final_status",
 ]
 
@@ -104,7 +103,6 @@ def write_split(
         copy_image(repo_root, first, screenshot_root / filename)
 
         reviewer_indexes = PAIR_ROTATION[(index - 1) % len(PAIR_ROTATION)]
-        adjudicator_index = ({0, 1, 2} - set(reviewer_indexes)).pop()
         review_rows.append(
             {
                 "review_item_id": item_id,
@@ -125,8 +123,7 @@ def write_split(
                 "reviewer_1_notes": "",
                 "reviewer_2_decision": "",
                 "reviewer_2_notes": "",
-                "adjudicator": REVIEWERS[adjudicator_index],
-                "adjudication_notes": "",
+                "disagreement": "",
                 "final_status": "pending",
             }
         )
@@ -158,10 +155,11 @@ For every assigned row:
 6. Enter `approved`, `rejected`, or `needs_discussion` in your decision column.
 7. Add a short note for every rejection or uncertainty.
 
-Do not edit the other reviewer's decision. If the two decisions disagree, the
-listed adjudicator reviews the item and records the resolution. Set
-`final_status` only after both reviews are complete: `approved`, `rejected`, or
-`excluded_after_adjudication`.
+Do not edit the other reviewer's decision. After both reviews are complete, set
+`disagreement` to `no` when the decisions match or `yes` when they differ. For
+matching decisions, copy the shared decision to `final_status`. When reviewers
+disagree, discuss the screenshot as a team and record the agreed result in
+`final_status`.
 
 Review the pilot package first. Start the main package only after the team has
 confirmed that the pilot procedure works. Keep transfer screenshots away from
