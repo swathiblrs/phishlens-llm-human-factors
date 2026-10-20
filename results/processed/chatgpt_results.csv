@@ -1,0 +1,1 @@
+run_id,timestamp_utc,prompt_version,provider,model_name,model_version,sample_id,screenshot_path,displayed_url,parent_sample_id,ground_truth,modification_type,verdict,confidence,claimed_brand,evidence_json,explanation,recommended_action,needs_human_review,raw_response_path,latency_ms,notes
