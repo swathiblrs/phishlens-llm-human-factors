@@ -1,80 +1,89 @@
 # PhishLens
 
-**When an AI confidently misreads a phishing page, will people trust it anyway?**
+PhishLens examines how multimodal large language models classify visually
+manipulated phishing websites and how model explanations affect human security
+decisions. The project evaluates existing models rather than training a new
+language model.
 
-PhishLens studies how multimodal large language models (MLLMs) detect visually manipulated phishing websites and how their explanations influence human decisions. We test existing multimodal models on original and modified website screenshots, record when their verdicts and explanations fail, and use selected outputs in a controlled user study.
+The repository uses static screenshots, simulated `.test` domains, and
+structured model outputs. It contains no live phishing workflow and collects no
+credentials.
 
-We are not building or training a new LLM. We are evaluating models such as GPT, Claude, and Gemini under the same experimental conditions.
+## Study design
 
-Static screenshots only. No live phishing websites. No credential collection.
+### Technical evaluation
 
-## Why this exists
+ChatGPT, Claude, and Gemini receive the same screenshot, displayed URL, and
+versioned prompt. Each response records:
 
-Phishing websites imitate trusted services to steal passwords and other sensitive information. Visual phishing detectors and MLLMs can inspect webpage screenshots for suspicious branding, login forms, layouts, and mismatches between a claimed brand and a displayed URL.
+- a `phishing`, `legitimate`, or `uncertain` verdict
+- confidence from 0 to 100
+- the claimed brand
+- visible supporting evidence
+- a plain-language explanation
+- a recommended action
+- whether human review is appropriate
 
-However, attackers can alter logos, colors, layouts, and brand-related cues while keeping a page convincing. These changes may cause a model to produce an incorrect verdict. Because an MLLM can also generate a fluent and confident explanation, its error may persuade a user to trust a phishing page.
+The dataset includes original website screenshots, visible logo and layout
+changes, and adversarial perturbations. The main experiment balances legitimate
+and phishing URL contexts and covers the defined manipulation categories.
 
-Existing work has evaluated visual phishing detectors, multimodal phishing detection, and explainable warnings. PhishLens connects these areas by examining both model robustness and what happens when people receive correct or incorrect AI-generated security advice.
+### Human study
 
-## How it works
+The human study compares three assistance conditions:
 
-1. **Prepare the dataset.** Collect verified legitimate and phishing website screenshots from approved research datasets.
-2. **Create controlled variants.** Modify one visual category at a time, including logos, colors/layouts, and visible brand or URL cues.
-3. **Evaluate the models.** Give GPT, Claude, and Gemini the same screenshot, displayed URL, and versioned prompt.
-4. **Record the results.** Preserve each model's verdict, confidence, cited evidence, explanation, recommended action, latency, and raw response.
-5. **Review explanation quality.** Check whether the evidence is visible, factually supported, understandable, and connected to a safe recommendation.
-6. **Select study examples.** Choose correct and incorrect MLLM outputs from the technical evaluation.
-7. **Run the user study.** Compare participant decisions with no warning, a conventional warning, and an MLLM evidence-based explanation.
-8. **Measure the outcome.** Analyze detection accuracy, decision time, confidence, trust, over-reliance on incorrect advice, and later unaided performance.
-
-## Features
-
-- Two-stage evaluation connecting model failures with human security decisions
-- Controlled original-versus-modified screenshot comparisons
-- Support for GPT, Claude, and Gemini candidate models
-- Versioned prompt shared across all model runs
-- Structured JSON output for verdicts, evidence, explanations, and recommendations
-- Raw-response preservation and CSV normalization
-- Explanation-quality coding for factual support, clarity, and safety
-- Planned three-condition human study
-- Planned transfer test without AI assistance
-- Reproducible dataset manifest, validation scripts, and analysis materials
-
-## Experimental design
-
-### Stage 1: MLLM robustness evaluation
-
-The proposed evaluation will use legitimate, original phishing, and visually manipulated phishing screenshots. Each model will receive the same input and will classify the sample as `phishing`, `legitimate`, or `uncertain`.
-
-The planned visual manipulation categories are:
-
-| Category | Examples |
+| Condition | Information shown |
 |---|---|
-| Logo modification | Removal, replacement, scaling, rotation, blurring, or adversarial perturbation |
-| Color and layout | Color replacement, repositioning, or layout modification |
-| Brand and URL cues | Brand-text changes, font/case changes, or mismatched displayed domains |
+| No assistance | Website screenshot and displayed URL |
+| Standard warning | Screenshot, URL, and a conventional warning |
+| LLM explanation | Screenshot, URL, model verdict, and supporting evidence |
 
-The project currently includes Professor Kim's perturbation dataset with Swin, ViT, CW, FGM, PGD, and SRNet examples, plus visible logo manipulations such as color changes, scaling, rotation, replacement, blur, and font changes. The organized inventory is stored in [`data/controlled_variants.csv`](data/controlled_variants.csv) and can be reproduced with [`scripts/build_controlled_variants_manifest.py`](scripts/build_controlled_variants_manifest.py). Experimental labels remain pending until verified URL context is assigned.
+The study measures detection accuracy, decision time, confidence, trust,
+reliance on incorrect advice, and later performance without AI assistance.
 
-The selected experiment set is stored in [`data/experiment_subset.csv`](data/experiment_subset.csv). It contains a 12-record pilot, a balanced 150-record main evaluation, and five unseen transfer samples. The main set covers all 18 manipulation types with three screenshots per type. Each controlled screenshot receives matched official-domain and synthetic `.test` domain contexts. The selection can be reproduced with [`scripts/build_experiment_subset.py`](scripts/build_experiment_subset.py).
+## Dataset organization
 
-Team review packages are under [`review/`](review/). They contain 9 pilot, 96 main, and 5 transfer screenshots with separate CSV manifests, balanced reviewer assignments, independent decision fields, and adjudication fields. Team members should follow [`review/REVIEW_INSTRUCTIONS.md`](review/REVIEW_INSTRUCTIONS.md) and complete the pilot before starting the main review. The packages can be rebuilt with [`scripts/build_review_packages.py`](scripts/build_review_packages.py).
-
-### Stage 2: Human study
-
-Subject to instructor and IRB/HRPP approval, adult participants will classify randomized website screenshots under one of three conditions:
-
-| Condition | Participant sees |
+| File or folder | Contents |
 |---|---|
-| No warning | Website screenshot and displayed URL only |
-| Conventional warning | Screenshot, URL, and a standard phishing warning |
-| MLLM explanation | Screenshot, URL, model verdict, and evidence-based explanation |
+| `data/manifest.csv` | Original legitimate and phishing sample metadata |
+| `data/controlled_variants.csv` | Inventory of controlled visual variants |
+| `data/experiment_subset.csv` | Pilot, main, and transfer experiment records |
+| `review/pilot/` | Pilot screenshots and independent review decisions |
+| `review/main/` | Main screenshots and independent review decisions |
+| `review/transfer/` | Transfer screenshots and independent review decisions |
 
-The MLLM condition will include both correct and incorrect recommendations observed during Stage 1. A final unaided task is planned to measure whether participants can apply what they learned without AI assistance.
+The experiment manifest defines one row per model input. A single reviewed
+screenshot can appear in more than one experiment row when it is paired with
+different URL contexts.
+
+## Shared model prompt
+
+The compact prompt is stored in
+[`prompts/phishing_analysis_v1.md`](prompts/phishing_analysis_v1.md). The same
+questions and JSON format apply to ChatGPT, Claude, and Gemini.
+
+## Result organization
+
+```text
+results/
+├── README.md
+├── raw/
+│   ├── chatgpt/
+│   ├── claude/
+│   └── gemini/
+└── processed/
+    ├── chatgpt_results.csv
+    ├── claude_results.csv
+    ├── gemini_results.csv
+    └── sample_result.csv
+```
+
+The provider CSV files use the same 22-column format defined in
+[`schemas/model_results_columns.csv`](schemas/model_results_columns.csv).
+Complete unedited responses belong under the matching provider in
+`results/raw/`. Normalized results belong in `results/processed/`.
 
 ## Standard model output
-
-Each model response is normalized into one JSON object:
 
 ```json
 {
@@ -86,145 +95,89 @@ Each model response is normalized into one JSON object:
     {
       "category": "url_domain",
       "observation": "The displayed domain does not match the claimed brand.",
-      "risk_relevance": "A brand-domain mismatch is a common phishing indicator."
+      "risk_relevance": "A brand-domain mismatch is a phishing indicator."
     }
   ],
-  "explanation": "The claimed brand and displayed domain do not match. Verify the site independently before entering information.",
+  "explanation": "The claimed brand and displayed domain do not match.",
   "recommended_action": "verify_independently",
   "needs_human_review": true
 }
 ```
 
-The complete schema is in [`schemas/llm_output.schema.json`](schemas/llm_output.schema.json), and the standard prompt is in [`prompts/phishing_analysis_v1.md`](prompts/phishing_analysis_v1.md).
-
-## Safety and privacy
-
-A project involving phishing material and human participants requires strict safeguards:
-
-- **Static screenshots only.** The study does not require participants or researchers to open live phishing pages.
-- **No credentials.** PhishLens does not request, collect, or store passwords or authentication data.
-- **Untrusted screenshot text.** The prompt tells models to treat visible webpage text as content, not instructions.
-- **Verified labels.** Two team members will independently review screenshot labels and controlled modifications.
-- **Human review.** Model responses are experimental observations, not authoritative security verdicts.
-- **Participant privacy.** Planned study responses will use randomized participant identifiers.
-- **Separate contact data.** Compensation contact information, if used, will be stored separately from study responses.
-- **Approval before recruitment.** No participant recruitment will begin before the required instructor and IRB/HRPP guidance.
-- **License-aware sharing.** Dataset images and participant data will be shared only when their licenses and consent terms permit it.
+The JSON specification is stored in
+[`schemas/llm_output.schema.json`](schemas/llm_output.schema.json). The validator
+is implemented in [`src/phishlens/validation.py`](src/phishlens/validation.py).
 
 ## Architecture
 
-| Layer | Purpose | Current implementation |
-|---|---|---|
-| Dataset layer | Stores approved originals, controlled variants, labels, provenance, and manipulation metadata | `data/` and `data/manifest.csv` |
-| Prompt layer | Gives every MLLM the same instructions and input structure | `prompts/phishing_analysis_v1.md` |
-| Model layer | Runs the same screenshot and URL context through GPT, Claude, and Gemini | Manual interfaces initially; APIs if available |
-| Response layer | Preserves raw responses and normalizes structured fields | `results/raw/`, `results/processed/`, and `schemas/` |
-| Validation layer | Checks verdicts, confidence ranges, evidence fields, and output structure | `src/phishlens/validation.py` and `scripts/validate_result.py` |
-| Analysis layer | Will calculate model performance, confidence calibration, explanation quality, and human-study outcomes | Planned under `analysis/` |
-| Study layer | Will contain consent, protocol, questionnaires, warning conditions, and debriefing materials | Planned under `study/` |
+```text
+Original screenshots and controlled variants
+                    |
+             Experiment subset
+                    |
+          Shared multimodal prompt
+                    |
+       +------------+------------+
+       |            |            |
+    ChatGPT       Claude       Gemini
+       |            |            |
+       +------------+------------+
+                    |
+        Raw and normalized results
+                    |
+       Technical and human analysis
+```
+
+## Repository structure
 
 ```text
-Approved screenshots
-        │
-        ├── Original samples
-        └── Controlled visual variants
-                    │
-                    ▼
-          Versioned MLLM prompt
-                    │
-          ┌─────────┼─────────┐
-          ▼         ▼         ▼
-         GPT      Claude    Gemini
-          └─────────┼─────────┘
-                    ▼
-       Raw responses and validated JSON
-                    │
-          ┌─────────┴─────────┐
-          ▼                   ▼
-  Technical evaluation   Human-study stimuli
-                              │
-                              ▼
-                 Accuracy, trust, reliance,
-                    and transfer analysis
+phishlens-llm-human-factors/
+├── analysis/                 Statistical analysis materials
+├── data/
+│   ├── controlled_variants.csv
+│   ├── experiment_subset.csv
+│   ├── manifest.csv
+│   ├── original/
+│   └── perturbed/
+├── docs/                     Methodology and model-test documentation
+├── examples/                 Example structured model output
+├── paper/                    Proposal and report materials
+├── presentation/             Presentation materials
+├── prompts/                  Shared versioned model prompt
+├── results/                  Provider-specific raw and processed results
+├── review/                   Pilot, main, and transfer review packages
+├── schemas/                  JSON schema and CSV column definitions
+├── scripts/                  Dataset, review, and validation utilities
+├── src/phishlens/            Reusable validation code
+├── study/                    Human-study materials
+└── tests/                    Automated validator tests
 ```
 
-## Getting started
+## Validation
 
-### Prerequisites
-
-- Python 3.10 or newer
-- Git
-- An approved static screenshot for model testing
-- Access to the candidate multimodal model interfaces or APIs
-
-The current validation tools use only the Python standard library.
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/swathiblrs/phishlens-llm-human-factors.git
-cd phishlens-llm-human-factors
-```
-
-### 2. Validate the example response
+Example response validation:
 
 ```bash
 python3 scripts/validate_result.py examples/example_llm_output.json
 ```
 
-### 3. Run the tests
+Automated tests:
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-### 4. Test a screenshot
+## Safety and privacy
 
-Follow [`docs/first-model-test.md`](docs/first-model-test.md) after receiving and verifying an approved static screenshot. Use the exact same screenshot, displayed URL, and prompt for every model. Do not include the ground-truth label or modification type in the prompt.
-
-If a model does not return valid JSON, preserve the raw response and record a formatting failure. Do not rerun a response only because its result is undesirable.
-
-## Project layout
-
-```text
-phishlens-llm-human-factors/
-├── analysis/                 Planned statistical analysis code
-├── data/
-│   ├── original/             Approved original screenshots
-│   ├── perturbed/            Controlled visual variants
-│   └── manifest.csv          Labels, provenance, and manipulation metadata
-├── docs/                     Methodology and testing instructions
-├── examples/                 Example structured model output
-├── paper/                    Proposal and report materials
-├── presentation/             Presentation materials
-├── prompts/                  Versioned MLLM prompts
-├── results/
-│   ├── raw/                  Complete provider responses
-│   └── processed/            Validated and normalized results
-├── schemas/                  JSON and CSV specifications
-├── scripts/                  Command-line utilities
-├── src/phishlens/            Reusable Python code
-├── study/
-│   ├── consent/              Planned consent and debriefing materials
-│   ├── protocol/             Planned human-study protocol
-│   └── questionnaires/       Planned participant instruments
-└── tests/                    Automated validator tests
-```
-
-## Testing
-
-The unit tests verify valid responses and reject unsupported verdicts, out-of-range confidence values, and unexpected fields:
-
-```bash
-python3 -m unittest discover -s tests -v
-```
-
-To validate a specific normalized response:
-
-```bash
-python3 scripts/validate_result.py path/to/result.json
-```
+- Research inputs use static screenshots rather than live phishing pages.
+- Reserved `.test` domains represent simulated phishing contexts.
+- Screenshot text is treated as untrusted webpage content.
+- Model responses are experimental observations, not security guarantees.
+- Review packages exclude personal and sensitive information.
+- Dataset and participant materials remain subject to their applicable sharing
+  and consent restrictions.
 
 ## License
 
-No open-source license has been selected yet. Until a license is added, the repository contents remain protected by default copyright and should not be reused without permission.
+No open-source license is included. Repository contents remain protected by
+default copyright.
