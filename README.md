@@ -50,6 +50,7 @@ reliance on incorrect advice, and later performance without AI assistance.
 | `data/experiment_subset.csv` | Pilot, main, and transfer experiment records |
 | `review/pilot/` | Pilot screenshots and independent review decisions |
 | `review/main/` | Main screenshots and independent review decisions |
+| `review/main_extra/` | Publication-scale expansion for the main evaluation |
 | `review/transfer/` | Transfer screenshots and independent review decisions |
 
 The experiment manifest defines one row per model input. A single reviewed
@@ -145,7 +146,7 @@ phishlens-llm-human-factors/
 ├── presentation/             Presentation materials
 ├── prompts/                  Shared versioned model prompt
 ├── results/                  Provider-specific raw and processed results
-├── review/                   Pilot, main, and transfer review packages
+├── review/                   Pilot, main, main-extra, and transfer review packages
 ├── schemas/                  JSON schema and CSV column definitions
 ├── scripts/                  Dataset, review, and validation utilities
 ├── src/phishlens/            Reusable validation code

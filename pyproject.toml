@@ -3,6 +3,7 @@ name = "phishlens"
 version = "0.1.0"
 description = "Evaluation tools for multimodal LLM phishing research"
 requires-python = ">=3.10"
+dependencies = ["Pillow>=10"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
