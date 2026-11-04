@@ -68,7 +68,8 @@ PILOT_ITEMS = [
 
 FIELDS = [
     "screenshot_id", "screenshot_path", "split", "brand", "displayed_url",
-    "ground_truth", "variant_family", "manipulation_type",
+    "ground_truth", "form_set", "set_item_order", "assigned_to",
+    "variant_family", "manipulation_type",
     "gpt_verdict", "gpt_confidence", "gpt_recommended_action", "gpt_explanation", "gpt_correctness",
     "claude_verdict", "claude_confidence", "claude_recommended_action", "claude_explanation", "claude_correctness",
     "gemini_verdict", "gemini_confidence", "gemini_recommended_action", "gemini_explanation", "gemini_correctness",
@@ -153,6 +154,9 @@ def build_pilot_row(stem, ground_truth, displayed_url, results):
         "brand": brand,
         "displayed_url": displayed_url,
         "ground_truth": ground_truth,
+        "form_set": "Pilot",
+        "set_item_order": "",
+        "assigned_to": "Brigitte",
         "variant_family": "original",
         "manipulation_type": "original",
         "inclusion_status": "pilot_only",
@@ -168,6 +172,31 @@ def write_csv(name, rows):
         writer = csv.DictWriter(handle, fieldnames=FIELDS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
+
+
+def assign_final_sets(legitimate_rows, phishing_rows):
+    owners = {1: "Swathi", 2: "Prapti", 3: "Brigitte"}
+
+    # Each class has nine original items followed by nine controlled variants.
+    # Round-robin assignment gives every set three originals and three
+    # controlled variants from each class.
+    for rows in (legitimate_rows, phishing_rows):
+        for index, row in enumerate(rows):
+            set_number = (index % 9) % 3 + 1
+            row["form_set"] = f"Set {set_number}"
+            row["assigned_to"] = owners[set_number]
+
+    # Interleave legitimate and phishing items in each set and save one stable
+    # 1-12 order for use across Forms A, B, C1, C2 and C3.
+    for set_number in (1, 2, 3):
+        set_name = f"Set {set_number}"
+        legitimate = [row for row in legitimate_rows if row["form_set"] == set_name]
+        phishing = [row for row in phishing_rows if row["form_set"] == set_name]
+        order = 1
+        for legitimate_row, phishing_row in zip(legitimate, phishing):
+            legitimate_row["set_item_order"] = str(order)
+            phishing_row["set_item_order"] = str(order + 1)
+            order += 2
 
 
 def main():
@@ -194,6 +223,8 @@ def main():
         build_main_row(review_by_stem[stem], "phishing", results, "Original phishing example added during shortlist completion.")
         for stem in PHISHING_ORIGINALS
     ]
+
+    assign_final_sets(legitimate_rows, phishing_rows)
 
     pilot_rows = [build_pilot_row(stem, truth, url, results) for stem, truth, url in PILOT_ITEMS]
 
