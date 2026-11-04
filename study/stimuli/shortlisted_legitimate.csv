@@ -1,0 +1,12 @@
+screenshot ID, brand, manipulation type, gpt_correct, claude_correct, gemini_correct
+main-015-google-original, google, original,uncertain,correct,uncertain
+main-016-wellsfargobank-original, wellsfargobank, original,uncertain,correct,uncertain
+main-018-outlook-original, outlook, original, uncertain, correct, uncertain
+main-025-bankofamerica-original, bankofamerica, original,uncertain,correct,uncertain
+main-042-capitalone-original, capitalone, original,uncertain,correct,uncertain
+main-052-tdbank-original, tdbank, original, uncertain, correct, uncertain
+main-060-paypal-original, paypal, original,uncertain,correct,uncertain
+main-081-linkedin-original, linkedin, original,uncertain,correct,uncertain
+main-084-alibaba-original, alibaba, original,uncertain,correct,uncertain
+pilot-006-netflix-original, netflix, original,correct,correct,uncertain
+pilot-009-youtube-original, youtube, original,correct,correct,uncertain
