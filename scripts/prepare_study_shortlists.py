@@ -27,13 +27,13 @@ LEGITIMATE_ORIGINALS = [
 
 LEGITIMATE_CONTROLLED = [
     "main-001-adobe-scaling",
-    "main-013-absabank-location-change",
+    "main-087-onedrive-original",
     "main-019-instagram-cw",
     "main-026-bankofamerica-pgd",
     "main-032-dropbox-vit",
     "main-039-alibaba-resizing",
     "main-041-capitalone-pgd",
-    "main-045-wellsfargobank-fgm",
+    "main-036-chronopostinternational-original",
     "main-068-absabank-color-change",
 ]
 
@@ -211,7 +211,14 @@ def main():
         for stem in LEGITIMATE_ORIGINALS
     ]
     legitimate_rows += [
-        build_main_row(review_by_stem[stem], "legitimate", results, "Controlled legitimate variant added during shortlist completion.")
+        build_main_row(
+            review_by_stem[stem],
+            "legitimate",
+            results,
+            "Set 2 form replacement requested by Prapti."
+            if stem in {"main-087-onedrive-original", "main-036-chronopostinternational-original"}
+            else "Controlled legitimate variant added during shortlist completion.",
+        )
         for stem in LEGITIMATE_CONTROLLED
     ]
 
