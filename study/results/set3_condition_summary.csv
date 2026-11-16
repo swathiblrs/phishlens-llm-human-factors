@@ -1,0 +1,4 @@
+form_set,condition,submitted_responses,eligible_responses,declined_responses,main_correct,main_decisions,main_accuracy,transfer_correct,transfer_decisions,transfer_accuracy,mean_decision_confidence_1_to_3,mean_trust_1_to_5
+Set 3,no_warning,8,8,0,42,96,0.4375,28,40,0.7,2.0,
+Set 3,standard_warning,8,8,0,42,96,0.4375,26,40,0.65,2.1544117647058822,3.4
+Set 3,ai_explanation,9,9,0,42,108,0.3888888888888889,29,45,0.6444444444444445,1.8562091503267975,2.240740740740741
