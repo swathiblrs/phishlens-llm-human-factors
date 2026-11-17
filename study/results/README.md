@@ -25,3 +25,12 @@ These descriptive results are preliminary. The conditions have small, unequal sa
 See `set1_condition_summary.csv` for the machine-readable aggregate results.
 
 Set 2 and Set 3 summaries are stored in their corresponding CSV files. See `combined_results_report.md` and `combined_condition_summary.csv` for the pooled three-set report.
+
+## Research-question analysis
+
+- `research_question_analysis.md` maps the currently supported findings and limitations to RQ1-RQ5.
+- `team_action_plan.md` assigns the remaining data and evaluation work.
+- `set1_form_mapping.csv` records the actual Set 1 item order and AI advice shown.
+- `set1_participant_item_deidentified.csv` contains one de-identified row per eligible Set 1 participant and item. It excludes names, email addresses, timestamps, and age responses.
+- `scripts/analyze_current_results.py` reproduces the current aggregate and reliance metrics.
+- `scripts/build_set1_deidentified.py` rebuilds the Set 1 participant-item file from private form exports.
