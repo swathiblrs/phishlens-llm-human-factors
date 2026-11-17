@@ -23,3 +23,5 @@ These descriptive results are preliminary. The conditions have small, unequal sa
 - Repeated Google Forms column labels were processed by column position to preserve each screenshot's responses.
 
 See `set1_condition_summary.csv` for the machine-readable aggregate results.
+
+Set 2 and Set 3 summaries are stored in their corresponding CSV files. See `combined_results_report.md` and `combined_condition_summary.csv` for the pooled three-set report.
