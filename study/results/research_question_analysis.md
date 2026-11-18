@@ -46,14 +46,14 @@ The pooled AI-explanation condition was 4.5 percentage points above no warning a
 
 ## RQ4: How do users respond when an AI recommendation is incorrect?
 
-Set 1 provides a preliminary automation-bias signal. Among the 13 eligible AI-condition participants, only four of the 12 main items gave a definite phishing or legitimate AI verdict; the remaining eight were uncertain.
+Sets 1 and 3 provide a preliminary automation-bias signal. Each set's AI form contained four items with a definite phishing or legitimate AI verdict; the remaining eight were uncertain.
 
-- Participants followed correct definite advice in 15 of 26 decisions (57.7%).
-- Participants followed incorrect definite advice in 20 of 26 decisions (76.9%).
-- Accuracy was 57.7% when definite advice was correct and 23.1% when it was incorrect.
-- Mean trust was 3.46/5 for correct definite advice and 3.23/5 for incorrect definite advice.
+- Participants followed correct definite advice in 25 of 44 decisions (56.8%).
+- Participants followed incorrect definite advice in 36 of 44 decisions (81.8%).
+- Accuracy was 56.8% when definite advice was correct and 18.2% when it was incorrect.
+- Mean trust was 2.98/5 for correct definite advice and 2.82/5 for incorrect definite advice.
 
-This suggests possible overreliance on incorrect advice, but it is not conclusive. Three Set 1 Form C items differ from the current shortlist mapping, and raw item-level exports for Sets 2 and 3 are not yet available. The Set 1 paired comparison was not statistically conclusive (exploratory exact sign-flip p approximately 0.234).
+This suggests possible overreliance on incorrect advice, but it is not conclusive. Set 2 item-level responses are not yet available, and two Set 2 AI explanations were attached to the wrong screenshots and must be excluded consistently from all three conditions. Set 1 and Set 3 mappings were reconstructed from the forms and validated against their published totals.
 
 ## RQ5: Do users who receive explanations perform better later without AI assistance?
 
@@ -67,7 +67,7 @@ The pooled AI-explanation group was 5.0 percentage points above no warning and 4
 
 ## What is required for final answers
 
-1. Obtain de-identified participant-by-item exports for Sets 2 and 3, Forms A, B, and C.
+1. Obtain the Set 2 Forms A, B, and C exports and convert them to de-identified participant-by-item rows. Set 3 is complete.
 2. Record the ordered screenshot mapping, model shown, model verdict, and advice correctness for every Form C item.
 3. Analyze participant decisions while controlling for screenshot set, participant, and screenshot.
 4. Decide whether Stage 1 is screenshot-plus-URL phishing detection or screenshot-only visual-anomaly detection.

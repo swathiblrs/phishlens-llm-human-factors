@@ -18,9 +18,8 @@
 
 ### Brigitte
 
-- Export Set 3 Forms A, B, and C as CSV files.
-- Remove email addresses and replace participants with stable anonymous IDs.
-- Provide the exact ordered screenshot list and the model/verdict shown for every Form C item.
+- Set 3 exports, item mapping, and de-identification are complete.
+- Review the reconstructed mapping if any screenshot was changed after the live form was created.
 - After the technical-task decision, run the standardized Gemini evaluation.
 
 ## Team decisions

@@ -21,7 +21,7 @@ MODEL_FILES = {
     "gemini": ROOT / "results/processed/gemini_results.csv",
 }
 HUMAN_FILES = sorted((ROOT / "study/results").glob("set[123]_condition_summary.csv"))
-SET1_ITEM_FILE = ROOT / "study/results/set1_participant_item_deidentified.csv"
+ITEM_FILES = sorted((ROOT / "study/results").glob("set*_participant_item_deidentified.csv"))
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -167,10 +167,11 @@ def human_metrics() -> dict[str, object]:
     return output
 
 
-def set1_reliance_metrics() -> dict[str, object]:
+def available_reliance_metrics() -> dict[str, object]:
+    source_rows = [row for path in ITEM_FILES for row in read_csv(path)]
     rows = [
         row
-        for row in read_csv(SET1_ITEM_FILE)
+        for row in source_rows
         if row["condition"] == "ai_explanation"
         and row["phase"] == "main"
         and row["ai_correctness"] in {"correct", "incorrect"}
@@ -197,7 +198,7 @@ def main() -> None:
         "model_main_originals": model_metrics(),
         "main_controlled_response_profiles": manipulation_profiles(),
         "human_study": human_metrics(),
-        "set1_definite_ai_advice": set1_reliance_metrics(),
+        "available_definite_ai_advice": available_reliance_metrics(),
         "limitations": [
             "Controlled screenshots are context-dependent when the displayed URL is hidden.",
             "Model prompts and URL availability were not identical across providers.",

@@ -34,3 +34,8 @@ Set 2 and Set 3 summaries are stored in their corresponding CSV files. See `comb
 - `set1_participant_item_deidentified.csv` contains one de-identified row per eligible Set 1 participant and item. It excludes names, email addresses, timestamps, and age responses.
 - `scripts/analyze_current_results.py` reproduces the current aggregate and reliance metrics.
 - `scripts/build_set1_deidentified.py` rebuilds the Set 1 participant-item file from private form exports.
+- `set3_form_mapping.csv` records the actual Set 3 item order and AI advice shown.
+- `set3_participant_item_deidentified.csv` contains the privacy-safe Set 3 participant-item data.
+- `scripts/build_set3_deidentified.py` rebuilds Set 3 from private exports supplied as command-line inputs.
+
+Raw Set 3 Google Forms exports were removed from the current repository tree after de-identification. They remain in earlier Git history until that history is deliberately purged. Keep the repository private until the history is cleaned.
