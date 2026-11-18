@@ -40,5 +40,7 @@ Set 2 and Set 3 summaries are stored in their corresponding CSV files. See `comb
 - `set2_participant_item_deidentified.csv` contains the Set 2 analysis table with questions 7 and 11 explicitly excluded as form errors.
 - `set2_condition_summary_all12_sensitivity.csv` preserves the original 12-item Set 2 result for transparent sensitivity reporting.
 - `scripts/prepare_set2_analysis.py` reproduces the Set 2 exclusions without modifying the uploaded source table.
+- `screenshot_only_model_summary.csv` contains the finalized RQ1 original-page and controlled-page judgment summary.
+- `screenshot_only_manipulation_profile.csv` contains the RQ2 verdict distribution for all 18 manipulation types.
 
 Raw Set 3 Google Forms exports were removed from the current repository tree after de-identification. They remain in earlier Git history until that history is deliberately purged. Keep the repository private until the history is cleaned.

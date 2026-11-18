@@ -2,17 +2,17 @@
 
 ## Status
 
-This document separates findings supported by the current data from findings that still require a technical-design decision. De-identified participant-item data are available for all three human-study sets. Standardized model runs are not yet complete.
+This document reports the screenshot-only technical evaluation and the three-condition human study. De-identified participant-item data are available for all three human-study sets. The technical analysis uses only the screenshot evidence supplied to each model and does not assign URL-dependent phishing labels to controlled variants.
 
 | Research question | Current status | Current answer |
 | --- | --- | --- |
-| RQ1: Model accuracy | Partially answered | Original screenshots can be compared; controlled URL contexts are incomplete. |
-| RQ2: Manipulation failures | Partially answered | Response patterns are available, but classification accuracy and explanation coding are incomplete. |
+| RQ1: Screenshot-only model judgment | Answered | Original-page accuracy, abstention, and controlled-page judgment behavior are reported. |
+| RQ2: Manipulation sensitivity | Answered descriptively | Judgment distributions are reported for all 18 manipulation types. |
 | RQ3: User accuracy | Answered | AI explanations produced a modest, non-significant improvement. |
 | RQ4: Incorrect AI advice | Answered | Participants followed incorrect advice significantly more often than correct advice. |
 | RQ5: Unaided transfer | Answered | The AI group scored higher descriptively, but the improvement was not statistically significant. |
 
-## RQ1: How accurately do multimodal LLMs distinguish phishing and legitimate websites?
+## RQ1: How do multimodal LLMs judge original and visually manipulated website screenshots without URL context?
 
 The defensible current comparison uses the balanced 42-image main-original subset: 21 legitimate and 21 phishing screenshots. These images have unambiguous screenshot-level labels, and all three models evaluated them without a displayed URL.
 
@@ -24,13 +24,13 @@ The defensible current comparison uses the balanced 42-image main-original subse
 
 Claude classified all 21 legitimate originals correctly, but detected only 10 of 21 phishing originals. It mislabeled 10 phishing originals as legitimate and returned uncertain once. ChatGPT and Gemini each detected six phishing originals and returned uncertain for the other 36 items, including every legitimate original.
 
-This is not a final model leaderboard. Claude's exact prompt version was not recorded, and the broader pilot inputs were not presented consistently across models.
+For the 54 controlled main screenshots, ChatGPT returned 53 uncertain and one phishing judgment; Gemini returned 52 uncertain and two phishing judgments; Claude returned 28 uncertain, 11 phishing, and 15 legitimate judgments. Treating phishing or uncertain as a cautious response, the cautious-response rate was 100% for ChatGPT and Gemini and 72.2% for Claude. This is judgment behavior, not URL-aware phishing accuracy.
 
-## RQ2: Which visual manipulations cause classification or explanation failures?
+Claude produced substantially more binary decisions on original screenshots. ChatGPT and Gemini mostly abstained. This comparison should not be presented as a definitive model leaderboard because Claude's exact prompt version was not recorded.
 
-The 54 main controlled screenshots cannot currently be scored as correct or incorrect because each image has two intended URL contexts: an official-domain context labeled legitimate and a synthetic-domain context labeled phishing. None of the three model runs included those URLs for these items.
+## RQ2: Which manipulation types most often produce phishing, legitimate, or uncertain judgments?
 
-The current runs support only an exploratory response-profile analysis:
+The screenshot-only analysis reports response sensitivity rather than URL-dependent phishing accuracy:
 
 - ChatGPT returned uncertain for 53 of 54 controlled screenshots and phishing for one replacement example.
 - Gemini returned uncertain for 52 of 54, phishing for one replacement example, and phishing for one integration example.
@@ -38,7 +38,7 @@ The current runs support only an exploratory response-profile analysis:
 - Claude flagged every flipping, integration, and SRNet example as phishing (nine of nine total) and two of three replacement examples.
 - Claude labeled every blur and rotation example legitimate (six of six total), despite the controlled visual changes.
 
-Each manipulation has only three main screenshots, so these patterns are exploratory. A final RQ2 answer requires the same models to evaluate both URL contexts or requires the research question to be changed to visual-anomaly detection.
+Claude was most sensitive to flipping, integration, SRNet, and replacement. Blur and rotation were the clearest misses for Claude because all six examples received legitimate judgments. ChatGPT and Gemini avoided legitimate judgments but relied heavily on uncertain responses. Each manipulation has only three screenshots, so the manipulation comparison is descriptive and should not be generalized beyond this dataset.
 
 ## RQ3: Do AI explanations improve user accuracy relative to a warning or no warning?
 
@@ -75,12 +75,11 @@ At the participant level, the mean incorrect-minus-correct following difference 
 
 The pooled AI-explanation group was 5.0 percentage points above no warning and 4.3 points above the standard warning. After adjusting participant-level transfer accuracy for set, the AI-versus-no-warning difference was 4.5 points (95% CI -4.0 to 13.1, p=0.302). Standard warning versus no warning was 0.6 points (p=0.886). The data therefore do not provide statistically significant evidence of later unaided learning.
 
-## What is required for final answers
+## Remaining robustness and reporting work
 
-1. Decide whether Stage 1 is screenshot-plus-URL phishing detection or screenshot-only visual-anomaly detection.
-2. If retaining phishing detection, rerun every model on the canonical 167 screenshot-plus-context inputs using the same prompt and metadata fields.
-3. Code explanation quality with two reviewers, including grounded evidence, hallucination, URL reasoning, recommendation consistency, and misleading content.
-4. Run the final item-level mixed-effects model as a robustness analysis for RQ3 and RQ5.
+1. Run the final item-level mixed-effects model as a robustness analysis for RQ3 and RQ5.
+2. If the paper makes explanation-quality claims beyond participant reliance, code grounded evidence, hallucination, and misleading content with two reviewers.
+3. Update the paper and slides so RQ1-RQ2 consistently describe screenshot-only judgment and manipulation sensitivity, not URL-aware phishing accuracy.
 
 ## Reproducibility
 
