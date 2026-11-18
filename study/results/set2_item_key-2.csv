@@ -1,0 +1,18 @@
+form_set,phase,item_order,screenshot_id,ground_truth,form_c_model,form_c_ai_verdict
+Set 2,main,1,main-016-wellsfargobank-original,legitimate,claude,legitimate
+Set 2,main,2,main-023-absabank-omission,phishing,gpt,uncertain
+Set 2,main,3,main-042-capitalone-original,legitimate,claude,legitimate
+Set 2,main,4,main-003-amazon-swin,phishing,claude,uncertain
+Set 2,main,5,main-081-linkedin-original,legitimate,gpt,uncertain
+Set 2,main,6,main-088-whatsapp-fgm,phishing,claude,uncertain
+Set 2,main,7,main-071-onedrive-original,phishing,claude,legitimate
+Set 2,main,8,main-017-instagram-original,phishing,claude,legitimate
+Set 2,main,9,main-032-dropbox-vit,phishing,gemini,uncertain
+Set 2,main,10,main-040-dhl-original,phishing,gpt,phishing
+Set 2,main,11,main-054-chronopostinternational-original,phishing,claude,legitimate
+Set 2,main,12,main-051-ebay-original,phishing,claude,legitimate
+Set 2,transfer,1,transfer-001-orange-original,legitimate,,
+Set 2,transfer,2,transfer-002-att-original,phishing,,
+Set 2,transfer,3,transfer-003-godaddy-original,phishing,,
+Set 2,transfer,4,transfer-004-steam-original,legitimate,,
+Set 2,transfer,5,transfer-005-yahoo-original,phishing,,
