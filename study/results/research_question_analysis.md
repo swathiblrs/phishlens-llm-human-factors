@@ -2,7 +2,15 @@
 
 ## Status
 
-This document separates findings supported by the current data from findings that still require additional data or a team decision. All results are preliminary until the participant-by-item dataset and standardized model runs are complete.
+This document separates findings supported by the current data from findings that still require a technical-design decision. De-identified participant-item data are available for all three human-study sets. Standardized model runs are not yet complete.
+
+| Research question | Current status | Current answer |
+| --- | --- | --- |
+| RQ1: Model accuracy | Partially answered | Original screenshots can be compared; controlled URL contexts are incomplete. |
+| RQ2: Manipulation failures | Partially answered | Response patterns are available, but classification accuracy and explanation coding are incomplete. |
+| RQ3: User accuracy | Answered | AI explanations produced a modest, non-significant improvement. |
+| RQ4: Incorrect AI advice | Answered | Participants followed incorrect advice significantly more often than correct advice. |
+| RQ5: Unaided transfer | Answered | The AI group scored higher descriptively, but the improvement was not statistically significant. |
 
 ## RQ1: How accurately do multimodal LLMs distinguish phishing and legitimate websites?
 
@@ -38,22 +46,24 @@ Across Sets 1–3:
 
 | Condition | Eligible participants | Main accuracy | Mean confidence |
 | --- | ---: | ---: | ---: |
-| No warning | 32 | 41.1% | 2.13/3 |
-| Standard warning | 32 | 41.4% | 1.96/3 |
-| AI explanation | 36 | 45.6% | 1.99/3 |
+| No warning | 32 | 43.5% | 2.12/3 |
+| Standard warning | 32 | 43.8% | 1.96/3 |
+| AI explanation | 36 | 48.8% | 1.94/3 |
 
-The pooled AI-explanation condition was 4.5 percentage points above no warning and 4.2 points above the standard warning. However, the pattern varied by screenshot set: AI versus no warning was -3.1 points in Set 1, +13.0 points in Set 2, and -4.9 points in Set 3. The pooled advantage is therefore driven primarily by Set 2 and should not yet be described as a general or statistically significant improvement.
+The pooled AI-explanation condition was 5.3 percentage points above no warning and 5.0 points above the standard warning. After adjusting participant-level accuracy for screenshot set, the AI-versus-no-warning difference was 5.8 points (95% CI -1.8 to 13.4, p=0.135). Standard warning versus no warning was 0.8 points (p=0.846). AI explanations therefore showed a modest descriptive improvement, but not a statistically significant one.
+
+The pattern varied by set: AI versus no warning was -3.1 points in Set 1, +18.3 points in corrected Set 2, and -4.9 points in Set 3. The pooled advantage is driven by Set 2. Set 2 questions 7 and 11 are excluded from every condition because Form C displayed explanations for different screenshots; the original 12-item result is retained as a sensitivity analysis.
 
 ## RQ4: How do users respond when an AI recommendation is incorrect?
 
-Sets 1 and 3 provide a preliminary automation-bias signal. Each set's AI form contained four items with a definite phishing or legitimate AI verdict; the remaining eight were uncertain.
+All three sets provide an automation-bias result. Set 2 questions 7 and 11 are excluded because their AI text belonged to different screenshots.
 
-- Participants followed correct definite advice in 25 of 44 decisions (56.8%).
-- Participants followed incorrect definite advice in 36 of 44 decisions (81.8%).
-- Accuracy was 56.8% when definite advice was correct and 18.2% when it was incorrect.
-- Mean trust was 2.98/5 for correct definite advice and 2.82/5 for incorrect definite advice.
+- Participants followed correct definite advice in 61 of 86 decisions (70.9%).
+- Participants followed incorrect definite advice in 63 of 72 decisions (87.5%).
+- Accuracy was 70.9% when definite advice was correct and 12.5% when it was incorrect.
+- Mean trust was 3.50/5 for correct definite advice and 3.35/5 for incorrect definite advice.
 
-This suggests possible overreliance on incorrect advice, but it is not conclusive. Set 2 item-level responses are not yet available, and two Set 2 AI explanations were attached to the wrong screenshots and must be excluded consistently from all three conditions. Set 1 and Set 3 mappings were reconstructed from the forms and validated against their published totals.
+At the participant level, the mean incorrect-minus-correct following difference was 19.4 percentage points (95% CI 7.3 to 31.6). A paired test was statistically significant (paired t-test p=0.0026; Wilcoxon p=0.0084). This supports the conclusion that participants over-relied on incorrect definite AI advice.
 
 ## RQ5: Do users who receive explanations perform better later without AI assistance?
 
@@ -63,16 +73,14 @@ This suggests possible overreliance on incorrect advice, but it is not conclusiv
 | Standard warning | 56.3% |
 | AI explanation | 60.6% |
 
-The pooled AI-explanation group was 5.0 percentage points above no warning and 4.3 points above the standard warning. This is preliminary evidence of transfer, but the set-specific AI-versus-no-warning effects were -1.5 points in Set 1, +14.7 points in Set 2, and -5.6 points in Set 3. As with RQ3, Set 2 drives the pooled advantage.
+The pooled AI-explanation group was 5.0 percentage points above no warning and 4.3 points above the standard warning. After adjusting participant-level transfer accuracy for set, the AI-versus-no-warning difference was 4.5 points (95% CI -4.0 to 13.1, p=0.302). Standard warning versus no warning was 0.6 points (p=0.886). The data therefore do not provide statistically significant evidence of later unaided learning.
 
 ## What is required for final answers
 
-1. Obtain the Set 2 Forms A, B, and C exports and convert them to de-identified participant-by-item rows. Set 3 is complete.
-2. Record the ordered screenshot mapping, model shown, model verdict, and advice correctness for every Form C item.
-3. Analyze participant decisions while controlling for screenshot set, participant, and screenshot.
-4. Decide whether Stage 1 is screenshot-plus-URL phishing detection or screenshot-only visual-anomaly detection.
-5. If retaining phishing detection, rerun every model on the canonical 167 screenshot-plus-context inputs using the same prompt and metadata fields.
-6. Code explanation quality with two reviewers, including grounded evidence, hallucination, URL reasoning, recommendation consistency, and misleading content.
+1. Decide whether Stage 1 is screenshot-plus-URL phishing detection or screenshot-only visual-anomaly detection.
+2. If retaining phishing detection, rerun every model on the canonical 167 screenshot-plus-context inputs using the same prompt and metadata fields.
+3. Code explanation quality with two reviewers, including grounded evidence, hallucination, URL reasoning, recommendation consistency, and misleading content.
+4. Run the final item-level mixed-effects model as a robustness analysis for RQ3 and RQ5.
 
 ## Reproducibility
 

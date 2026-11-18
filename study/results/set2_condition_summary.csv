@@ -1,4 +1,4 @@
 form_set,condition,submitted_responses,eligible_responses,declined_responses,main_correct,main_decisions,main_accuracy,transfer_correct,transfer_decisions,transfer_accuracy,mean_decision_confidence_1_to_3,mean_trust_1_to_5
-Set 2,no_warning,15,15,0,58,180,0.3222,34,75,0.4533,2.1333,
-Set 2,standard_warning,15,15,0,68,180,0.3778,39,75,0.5200,1.8333,3.3556
-Set 2,ai_explanation,15,14,1,76,168,0.4524,42,70,0.6000,2.1548,4.1131
+Set 2,no_warning,15,15,0,54,150,0.3600,34,75,0.4533,2.1533,
+Set 2,standard_warning,15,15,0,64,150,0.4267,39,75,0.5200,1.8467,3.3733
+Set 2,ai_explanation,15,14,1,76,140,0.5429,42,70,0.6000,2.1286,4.1143

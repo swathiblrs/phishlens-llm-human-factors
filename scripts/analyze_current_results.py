@@ -175,6 +175,7 @@ def available_reliance_metrics() -> dict[str, object]:
         if row["condition"] == "ai_explanation"
         and row["phase"] == "main"
         and row["ai_correctness"] in {"correct", "incorrect"}
+        and row.get("analysis_status", "included") == "included"
     ]
     output: dict[str, object] = {}
     for advice_status in ("correct", "incorrect"):

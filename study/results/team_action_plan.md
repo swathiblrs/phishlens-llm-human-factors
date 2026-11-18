@@ -11,9 +11,9 @@
 
 ### Prapti
 
-- Export Set 2 Forms A, B, and C as CSV files.
-- Remove email addresses and replace participants with stable anonymous IDs.
-- Provide the exact ordered screenshot list and the model/verdict shown for every Form C item.
+- Set 2 responses and the item key are merged and de-identified.
+- Questions 7 and 11 are documented form errors and are excluded from all three conditions in the primary analysis.
+- Review the reconstructed exclusion note if the live form changed after export.
 - After the technical-task decision, run the standardized Claude evaluation.
 
 ### Brigitte

@@ -1,6 +1,6 @@
 # Human-study results
 
-This directory contains aggregate, de-identified results from the PhishLens human study. Raw Google Forms exports, timestamps, and participant-level records are not stored in the repository.
+This directory contains aggregate results and de-identified participant-item records from the PhishLens human study. Raw Google Forms exports, timestamps, ages, email addresses, names, and free-text comments are not stored in the current repository tree.
 
 ## Set 1 preliminary summary
 
@@ -37,5 +37,8 @@ Set 2 and Set 3 summaries are stored in their corresponding CSV files. See `comb
 - `set3_form_mapping.csv` records the actual Set 3 item order and AI advice shown.
 - `set3_participant_item_deidentified.csv` contains the privacy-safe Set 3 participant-item data.
 - `scripts/build_set3_deidentified.py` rebuilds Set 3 from private exports supplied as command-line inputs.
+- `set2_participant_item_deidentified.csv` contains the Set 2 analysis table with questions 7 and 11 explicitly excluded as form errors.
+- `set2_condition_summary_all12_sensitivity.csv` preserves the original 12-item Set 2 result for transparent sensitivity reporting.
+- `scripts/prepare_set2_analysis.py` reproduces the Set 2 exclusions without modifying the uploaded source table.
 
 Raw Set 3 Google Forms exports were removed from the current repository tree after de-identification. They remain in earlier Git history until that history is deliberately purged. Keep the repository private until the history is cleaned.
