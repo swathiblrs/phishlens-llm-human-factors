@@ -25,3 +25,6 @@ results/raw/gemini/*
 !results/raw/gemini/.gitkeep
 results/processed/*
 !results/processed/*.csv
+
+# Keep the additional expansion screenshot collection local.
+review/main_extra/screenshots/
